@@ -5,11 +5,11 @@ import Dashboard from "./components/Dashboard";
 import AddPost from "./components/AddPost";
 import { checkLogin } from "./lib/utils/utils";
 import SinglePost from "./components/SinglePost";
+import Navbar from "./components/Navbar";
 
 
 export default function Router() {
   const [page, setPage] = useState(window.location.pathname);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLogged, setIsLogged] = useState(false)
 
   function navigate(url: string) {
@@ -22,7 +22,13 @@ export default function Router() {
     if(!isLogged) navigate('/login')
     return
   }
+  const isUserLogged = async () => {
+    const isLogged = await checkLogin()
+    if(isLogged) setIsLogged(true)
+    else setIsLogged(false)
+  }
   
+  isUserLogged()
   let content;
   const slug = window.location.pathname.split('/')[2]
 
@@ -62,5 +68,8 @@ export default function Router() {
     content = <div>404 - Not Found - <a href="/">go home</a></div>;
   }
 
-  return <>{content}</>;
+  return <>
+  <Navbar isLogged={isLogged} />
+  {content}
+  </>;
 }

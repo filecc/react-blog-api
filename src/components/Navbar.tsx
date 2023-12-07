@@ -1,22 +1,9 @@
-import { useEffect, useState } from "react"
-import { checkLogin } from "../lib/utils/utils"
-
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
   }
 
-export default function Navbar(){
+export default function Navbar({ isLogged }: { isLogged: boolean}){
     const path = window.location.pathname
-    const [isLogged, setIsLogged] = useState(false)
-    useEffect(() => {
-        const getUserLoginInfo = async () => {
-            const isLogged = await checkLogin()
-            if(isLogged) setIsLogged(true)
-            if(!isLogged) setIsLogged(false)
-            return
-          }
-          getUserLoginInfo()
-    }, [])
 
     const links  = [
         {
