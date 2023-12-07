@@ -9,6 +9,7 @@ import SinglePost from "./components/SinglePost";
 
 export default function Router() {
   const [page, setPage] = useState(window.location.pathname);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isLogged, setIsLogged] = useState(false)
 
   function navigate(url: string) {
@@ -21,18 +22,12 @@ export default function Router() {
     if(!isLogged) navigate('/login')
     return
   }
-  const getUserLoginInfo = async () => {
-    const isLogged = await checkLogin()
-    if(isLogged) setIsLogged(true)
-    if(!isLogged) setIsLogged(false)
-    return
-  }
-  getUserLoginInfo()
+  
   let content;
   const id = window.location.pathname.split('/')[2]
   
   if (page.endsWith('/')) {
-    content = <Home isLogged={isLogged} />;
+    content = <Home />;
   } else if (page.endsWith('/login')) {
     content = <Login />
   } else if (page.endsWith('/dashboard')) {
