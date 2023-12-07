@@ -24,7 +24,9 @@ export default function Router() {
   }
   
   let content;
-  const id = window.location.pathname.split('/')[2]
+  const slug = window.location.pathname.split('/')[2]
+
+
   
   if (page.endsWith('/')) {
     content = <Home />;
@@ -53,7 +55,7 @@ export default function Router() {
     logout()
   } else if (page.endsWith('/error')){
     content = <div>Something went wrong - <a href="/">go home</a></div>
-  } else if (page.endsWith(`/blog/${id}`)){
+  } else if (page.endsWith(`/blog/${slug}`)){
     content = <SinglePost />
   }
   else {
