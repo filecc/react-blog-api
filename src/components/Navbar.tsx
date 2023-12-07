@@ -9,21 +9,25 @@ export default function Navbar({ isLogged }: { isLogged: boolean}){
         {
             name: 'Home',
             path: '/',
+            active: path === '/',
             visible: true
         },
         {
             name: 'Login',
             path: '/login',
+            active: path === '/login',
             visible: !isLogged
         },
         {
             name: 'Dashboard',
             path: '/dashboard',
+            active: path === '/dashboard',
             visible: isLogged
         },
         {
             name: 'Logout',
             path: '/logout',
+            active: path === '/logout',
             visible: isLogged
         }
     ]
@@ -34,7 +38,7 @@ export default function Navbar({ isLogged }: { isLogged: boolean}){
             {links.map((link) => {
                 if(link.visible){
                     return <a key={link.name} className={classNames(
-                        path === link.path ? 'text-blue-500 font-medium' : '',
+                        link.active ? 'text-blue-500 font-medium' : '',
                         'hover:text-blue-500'
                     )} href={link.path}>{link.name}</a>
                 }
