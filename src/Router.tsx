@@ -8,13 +8,15 @@ import { checkLogin } from "./lib/utils/utils";
 
 export default function Router() {
   const [page, setPage] = useState(window.location.href);
-
+  const [isLogged, setIsLogged] = useState(false)
+  
   function navigate(url: string) {
     setPage(url);
   }
   
   const middleware = async () => {
     const isLogged = await checkLogin()
+    if(isLogged) setIsLogged(true)
     if(!isLogged) navigate('/login')
     return
   }
@@ -24,7 +26,7 @@ export default function Router() {
   }
   
   if (page.endsWith('/')) {
-    content = <Home navigate={navigate} />;
+    content = <Home isLogged={isLogged} />;
   } else if (page.endsWith('/login')) {
     content = <Login />
   } else if (page.endsWith('/dashboard')) {

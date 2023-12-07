@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Post } from "../lib/types/Post.types"
 
-export default function Home({ navigate }: { navigate: (url: string) => void }){
+export default function Home({ isLogged }: { isLogged: boolean }){
     const [ posts, setPosts ] = useState<Post[]>([])
     const [ reload, setReload ] = useState(true)
     useEffect(() => {
@@ -23,7 +23,9 @@ export default function Home({ navigate }: { navigate: (url: string) => void }){
     <div>
         <h1>Blog</h1>
         <div className="py-3 text-right">
-            <button onClick={() => navigate('/login')}>Login</button>
+            {isLogged 
+            ? <button onClick={() => window.location.href = '/dashboard'}>Dashboard</button>
+            : <button onClick={() => window.location.href = '/login'}>Login</button>}
         </div>
         {posts.map((post) => {
           return (<div key={post.id}>
