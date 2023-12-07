@@ -18,7 +18,7 @@ export default function SinglePost(){
             }
         }
         getPost()
-    })
+    }, [slug])
     return (<div>
         <a className="mb-6" href="/">back HOME</a>
         {post &&  <Article post={post} />}

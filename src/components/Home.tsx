@@ -10,7 +10,6 @@ export default function Home(){
         const getPosts = async () => {
           const res = await fetch('http://localhost:4000/api/posts')
           const result = await res.json()
-          console.log(result)
           if(result){
             setPosts(result)
             setReload(false)
