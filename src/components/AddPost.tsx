@@ -1,8 +1,5 @@
 import { useState } from "react"
 
-function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
-}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function fieldError(field: string, fields: any) {
@@ -50,7 +47,11 @@ export default function AddPost(){
        
     }
     return (<>
-        <h1>Add Post</h1>
+         <div className="flex items-center justify-between">
+          <h1>Add post</h1>
+          <a href="/dashboard">Dashboard</a>
+        </div>
+
         <form className="flex flex-col gap-2" onSubmit={handleAdd}> 
             <div>
                 <label htmlFor="title">Title</label>

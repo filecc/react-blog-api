@@ -9,7 +9,7 @@ import { checkLogin } from "./lib/utils/utils";
 export default function Router() {
   const [page, setPage] = useState(window.location.href);
   const [isLogged, setIsLogged] = useState(false)
-  
+
   function navigate(url: string) {
     setPage(url);
   }
@@ -21,21 +21,36 @@ export default function Router() {
     return
   }
   let content;
-  if(page != '/'){
-    middleware()
-  }
+ 
   
   if (page.endsWith('/')) {
     content = <Home isLogged={isLogged} />;
   } else if (page.endsWith('/login')) {
     content = <Login />
   } else if (page.endsWith('/dashboard')) {
+    middleware()
     content = <Dashboard />
   } else if(page.endsWith('/dashboard/create')){
+    middleware()
     content = <AddPost />
+  } else if(page.endsWith('/logout')){
+    const logout = async () => {
+      const res = await fetch('http://localhost:4000/user/logout', {
+        credentials: 'include'
+      })
+      const result = await res.json()
+      if (result.code === 200){
+        window.location.href = '/'
+      }
+      else {
+        window.location.href = '/error'
+      }
+      
+    }
+    logout()
+  } else if (page.endsWith('/error')){
+    content = <div>Something went wrong - <a href="/">go home</a></div>
   }
-  
-  
   else {
     content = <div>404 - Not Found - <a href="/">go home</a></div>;
   }

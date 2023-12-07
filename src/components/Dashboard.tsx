@@ -2,8 +2,16 @@
 export default function Dashboard(){
 
 
-    return (<>
-        <h1>Dashboard</h1>
-        <button onClick={() => window.location.href = '/dashboard/create'}>crea post</button>
-    </>)
+    return (
+      <>
+        <div className="flex items-center justify-between">
+          <h1>Dashboard</h1>
+          <a href="/logout">Logout</a>
+        </div>
+
+        <button onClick={() => (window.location.href = "/dashboard/create")}>
+          crea post
+        </button>
+      </>
+    );
 }
