@@ -4,10 +4,11 @@ import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import AddPost from "./components/AddPost";
 import { checkLogin } from "./lib/utils/utils";
+import SinglePost from "./components/SinglePost";
 
 
 export default function Router() {
-  const [page, setPage] = useState(window.location.href);
+  const [page, setPage] = useState(window.location.pathname);
   const [isLogged, setIsLogged] = useState(false)
 
   function navigate(url: string) {
@@ -20,8 +21,15 @@ export default function Router() {
     if(!isLogged) navigate('/login')
     return
   }
+  const getUserLoginInfo = async () => {
+    const isLogged = await checkLogin()
+    if(isLogged) setIsLogged(true)
+    if(!isLogged) setIsLogged(false)
+    return
+  }
+  getUserLoginInfo()
   let content;
- 
+  const id = window.location.pathname.split('/')[2]
   
   if (page.endsWith('/')) {
     content = <Home isLogged={isLogged} />;
@@ -50,6 +58,8 @@ export default function Router() {
     logout()
   } else if (page.endsWith('/error')){
     content = <div>Something went wrong - <a href="/">go home</a></div>
+  } else if (page.endsWith(`/blog/${id}`)){
+    content = <SinglePost />
   }
   else {
     content = <div>404 - Not Found - <a href="/">go home</a></div>;
